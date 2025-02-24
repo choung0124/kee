@@ -1,6 +1,7 @@
 import pytz
 from datetime import datetime
 
+# Set timezone to UK
 uk_tz = pytz.timezone('Europe/London')
 
 def get_time_difference(target):
