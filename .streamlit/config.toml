@@ -1,0 +1,10 @@
+[theme]
+primaryColor = "#C8A2C8"        # Pastel lilac
+backgroundColor = "#FFFFFF"     # Very light pastel lilac "#F8F4FF" 
+secondaryBackgroundColor = "#F0E6FF"  # Light pastel lilac
+textColor = "#4A4A4A"           # Dark gray for readability
+font = "sans serif"
+
+[server]
+address = "0.0.0.0"
+port=8501
