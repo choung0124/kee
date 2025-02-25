@@ -34,7 +34,8 @@ st.title("Our Story <3")
 st.subheader("We've known each other for over 4 years...")
 st.text("Our paths crossed multiple times, but it was only until February 2025 that we finally met.")
 st.text("It almost feels like fate guided us to meet at the right time.")
-st.image("images/Untitled - Frame 4.jpg", use_container_width=True)
+st.image("images/Untitled - Frame 8.jpg", use_container_width=True)
+st.image("images/Untitled - Frame 4 copy 2.jpg", use_container_width=True)
 
 
 st.text("In the short time after we met, we started dating...")
