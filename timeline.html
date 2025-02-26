@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Swirling Timeline Animation</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      max-width: 300px;
+      max-height: 600px;
+    }
+    .path {
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    #tealPath {
+      stroke: rgba(188, 230, 243, 0.8);
+    }
+    #pinkPath {
+      stroke: rgba(249, 196, 221, 0.8);
+    }
+    #verticalLine {
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 3;
+    }
+    .year-label {
+      font-family: sans-serif;
+      font-size: 16px;
+      fill: #333;
+      font-style: bold;
+      text-anchor: middle;
+    }
+    .endpoint-circle {
+      fill: rgba(255, 255, 255, 0.9);
+    }
+    .teal-circle {
+      fill: rgba(188, 230, 243, 0.8);
+    }
+    .pink-circle {
+      fill: rgba(249, 196, 221, 0.8);
+    }
+    .white-circle {
+      fill: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Label -->
+    <text class="year-label" x="150" y="60">2021 February</text>
+
+    <!-- Vertical white line in the center -->
+    <line 
+      id="verticalLine" 
+      x1="150" y1="100" 
+      x2="150" y2="500" 
+    />
+
+    <!-- Top circles -->
+    <circle class="teal-circle" cx="50" cy="75" r="25"/>
+    <circle class="white-circle" cx="150" cy="100" r="35"/>
+    <circle class="pink-circle" cx="250" cy="75" r="25"/>
+    <!-- Bottom circle -->
+    <circle class="white-circle" cx="150" cy="500" r="15"/>
+
+    <!-- Teal swirl path -->
+    <path 
+      id="tealPath" 
+      class="path"
+      d="M 50,80
+         C 50,150   350,150  150,250
+         C 0,325   275,350 150,485"
+    />
+
+    <!-- Pink swirl path -->
+    <path 
+      id="pinkPath" 
+      class="path"
+      d="M 250,80
+         C 250,150  -50,150  150,250
+         C 300,325  25,350  150,485"
+    />
+
+    <!-- Bottom Label -->
+    <text class="year-label" x="150" y="740">2025 February</text>
+  </svg>
+</div>
+
+<script>
+  function animatePath(pathId, duration) {
+    const path = document.getElementById(pathId);
+    const length = path.getTotalLength();
+    
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+    
+    // Trigger reflow
+    path.getBoundingClientRect();
+    
+    path.style.transition = `stroke-dashoffset ${duration}s ease-in-out`;
+    path.style.strokeDashoffset = '0';
+  }
+
+  // Start animation when the component is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    animatePath('tealPath', 4);
+    animatePath('pinkPath', 4);
+  });
+
+  // Backup in case DOMContentLoaded doesn't fire in Streamlit
+  window.addEventListener('load', function() {
+    animatePath('tealPath', 4);
+    animatePath('pinkPath', 4);
+  });
+</script>
+</body>
+</html>

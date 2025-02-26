@@ -3,9 +3,14 @@ import pandas as pd
 from datetime import datetime
 import pytz
 import time
+import streamlit.components.v1 as components
 
 # Set timezone to UK
 uk_tz = pytz.timezone('Europe/London')
+
+# Read the HTML file
+with open('timeline.html', 'r') as file:
+    html_content = file.read()
 
 def get_time_difference(target):
     now = datetime.now(uk_tz)
@@ -30,11 +35,12 @@ target_date = datetime(2025, 3, 10, 18, 5, 0, tzinfo=uk_tz)  # Main countdown
 first_met_date = datetime(2025, 2, 5, 12, 0, 0, tzinfo=uk_tz)  # First meeting at midday
 dating_start_date = datetime(2025, 2, 14, 19, 0, 0, tzinfo=uk_tz)  # Started dating in evening
 
-st.title("Our Story <3")
+#st.title("Our Story <3")
 st.subheader("We've known each other for over 4 years...")
 st.text("Our paths crossed multiple times, but it was only until February 2025 that we finally met.")
 st.text("It almost feels like fate guided us to meet at the right time.")
-st.image("images/Untitled - Frame 8.jpg", use_container_width=True)
+components.html(html_content, height=500)
+#st.image("images/Untitled - Frame 8.jpg", use_container_width=True)
 st.image("images/Untitled - Frame 4 copy 2.jpg", use_container_width=True)
 
 
