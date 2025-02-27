@@ -31,9 +31,11 @@
     }
     #tealPath {
       stroke: rgba(188, 230, 243, 0.8);
+      stroke-width: 3;
     }
     #pinkPath {
       stroke: rgba(255, 182, 193, 0.8);
+      stroke-width: 3;
     }
     #verticalLine {
       stroke: rgba(255, 255, 255, 0.9);
@@ -72,18 +74,61 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.8);
     }
     .modal-content {
       background-color: #F8F4FF;
       margin: 15% auto;
-      padding: 20px;
+      padding: 30px;
       border: 2px solid white;
       width: 80%;
-      max-width: 500px;
+      max-width: 350px;
       border-radius: 15px;
       position: relative;
       color: #4A4A4A;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .modal-header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .modal-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .modal-header h2 {
+      color: #4A4A4A;
+      font-size: 24px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+    .info-text {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: #4A4A4A;
+    }
+    .info-text strong {
+      font-weight: 600;
+    }
+    .social-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .social-links a {
+      color: #4A4A4A;
+      font-size: 24px;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #BCE6F3;
     }
     .close-modal {
       position: absolute;
@@ -100,23 +145,48 @@
       cursor: pointer;
     }
   </style>
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <div class="container">
-  <!-- Add modals -->
+  <!-- Kee's Modal -->
   <div id="keeModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('keeModal')">&times;</span>
-      <h2 style="text-align: center;">Kee</h2>
-      <p style="text-align: center;">Your custom content for Kee's modal here</p>
+      <div class="modal-header">
+        <img src="/Users/hschoung/kee/images/kee.png" alt="Kee's profile">
+        <h2>Kee</h2>
+      </div>
+      <div class="info-text">
+        Born on <strong>September 4th, 2002</strong><br>
+        Loves <strong>*/strong> and <strong>miso soup</strong><br>
+        Enjoys <strong>photography, gaming, and cooking</strong>
+      </div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/itsjustkeeeeee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@itsjustkeeee?_t=ZN-8uFkqzwhqyM&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
     </div>
   </div>
 
+  <!-- Your Modal -->
   <div id="meModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('meModal')">&times;</span>
-      <h2 style="text-align: center;">Me</h2>
-      <p style="text-align: center;">Your custom content for your modal here</p>
+      <div class="modal-header">
+        <img src="/Users/hschoung/kee/images/me.png" alt="Andie's profile">
+        <h2>Andie</h2>
+      </div>
+      <div class="info-text">
+        Born on <strong>November 26th, 2001</strong><br>
+        Loves <strong>pastel lilac</strong> and <strong>miso soup</strong><br>
+        Enjoys <strong>reading, art, and travel</strong>
+      </div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/andrew.choung?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@andiehoung" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
     </div>
   </div>
 
