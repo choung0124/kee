@@ -33,7 +33,7 @@
       stroke: rgba(188, 230, 243, 0.8);
     }
     #pinkPath {
-      stroke: rgba(249, 196, 221, 0.8);
+      stroke: rgba(255, 182, 193, 0.8);
     }
     #verticalLine {
       stroke: rgba(255, 255, 255, 0.9);
@@ -41,9 +41,9 @@
     }
     .year-label {
       font-family: sans-serif;
-      font-size: 16px;
-      fill: #333;
-      font-style: bold;
+      font-size: 20px;
+      fill: #FFFFFF;
+      font-weight: bold;
       text-anchor: middle;
     }
     .endpoint-circle {
@@ -53,53 +53,75 @@
       fill: rgba(188, 230, 243, 0.8);
     }
     .pink-circle {
-      fill: rgba(249, 196, 221, 0.8);
+      fill: rgba(255, 182, 193, 0.8);
     }
     .white-circle {
       fill: rgba(255, 255, 255, 0.9);
+    }
+    .profile-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Define patterns for images -->
+    <defs>
+      <pattern id="keeImage" patternUnits="userSpaceOnUse" width="50" height="50" x="0" y="0">
+        <image href="/Users/hschoung/kee/images/kee.png" width="50" height="50" preserveAspectRatio="xMidYMid slice"/>
+      </pattern>
+      <pattern id="meImage" patternUnits="userSpaceOnUse" width="50" height="50" x="250" y="0">
+        <image href="/Users/hschoung/kee/images/me.png" width="50" height="50" preserveAspectRatio="xMidYMid slice"/>
+      </pattern>
+    </defs>
+
     <!-- Top Label -->
-    <text class="year-label" x="150" y="60">2021 February</text>
+    <text class="year-label" x="150" y="60">2021</text>
 
     <!-- Vertical white line in the center -->
     <line 
       id="verticalLine" 
       x1="150" y1="100" 
-      x2="150" y2="500" 
+      x2="150" y2="450" 
     />
 
     <!-- Top circles -->
-    <circle class="teal-circle" cx="50" cy="75" r="25"/>
-    <circle class="white-circle" cx="150" cy="100" r="35"/>
-    <circle class="pink-circle" cx="250" cy="75" r="25"/>
+    <circle class="teal-circle" cx="25" cy="25" r="25"/>
+    <circle fill="url(#keeImage)" cx="25" cy="25" r="23"/>
+    
+    <circle stroke="white" stroke-width="8" fill="#F8F4FF" cx="150" cy="50" r="40"/>
+    
+    <circle class="pink-circle" cx="275" cy="25" r="25"/>
+    <circle fill="url(#meImage)" cx="275" cy="25" r="23"/>
+    
     <!-- Bottom circle -->
-    <circle class="white-circle" cx="150" cy="500" r="15"/>
+    <circle stroke="white" stroke-width="8" fill="#F8F4FF" cx="150" cy="500" r="40"/>
+
+    <!-- Year labels inside circles -->
+    <text class="year-label" x="150" y="55">2021</text>
+    <text class="year-label" x="150" y="505">2025</text>
 
     <!-- Teal swirl path -->
     <path 
       id="tealPath" 
       class="path"
-      d="M 50,80
-         C 50,150   350,150  150,250
-         C 0,325   275,350 150,485"
+      d="M 25,50
+         C 50,175   350,150  150,250
+         C 0,325   275,350 150,460"
     />
 
     <!-- Pink swirl path -->
     <path 
       id="pinkPath" 
       class="path"
-      d="M 250,80
-         C 250,150  -50,150  150,250
-         C 300,325  25,350  150,485"
+      d="M 275,50
+         C 250,175  -50,150  150,250
+         C 300,325  25,350  150,460"
     />
-
-    <!-- Bottom Label -->
-    <text class="year-label" x="150" y="740">2025 February</text>
   </svg>
 </div>
 
@@ -118,17 +140,31 @@
     path.style.strokeDashoffset = '0';
   }
 
-  // Start animation when the component is loaded
-  document.addEventListener('DOMContentLoaded', function() {
+  function resetPath(pathId) {
+    const path = document.getElementById(pathId);
+    path.style.transition = 'none';
+    path.style.strokeDashoffset = path.getTotalLength();
+  }
+
+  function startAnimation() {
+    // Start both animations
     animatePath('tealPath', 4);
     animatePath('pinkPath', 4);
-  });
+
+    // After animation + delay, reset and repeat
+    setTimeout(() => {
+      resetPath('tealPath');
+      resetPath('pinkPath');
+      // Small delay before next animation
+      setTimeout(startAnimation, 100);
+    }, 4000 + 2000); // Animation duration (4s) + delay between animations (3s)
+  }
+
+  // Start animation when the component is loaded
+  document.addEventListener('DOMContentLoaded', startAnimation);
 
   // Backup in case DOMContentLoaded doesn't fire in Streamlit
-  window.addEventListener('load', function() {
-    animatePath('tealPath', 4);
-    animatePath('pinkPath', 4);
-  });
+  window.addEventListener('load', startAnimation);
 </script>
 </body>
 </html>

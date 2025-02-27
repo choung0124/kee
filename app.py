@@ -4,13 +4,29 @@ from datetime import datetime
 import pytz
 import time
 import streamlit.components.v1 as components
+import base64
+from pathlib import Path
 
 # Set timezone to UK
 uk_tz = pytz.timezone('Europe/London')
 
+def get_image_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Convert images to base64
+kee_img = get_image_base64("images/kee.png")
+me_img = get_image_base64("images/me.png")
+
 # Read the HTML file
 with open('timeline.html', 'r') as file:
     html_content = file.read()
+
+# Replace image paths with base64 data
+html_content = html_content.replace('/Users/hschoung/kee/images/kee.png', f'data:image/png;base64,{kee_img}')
+html_content = html_content.replace('/Users/hschoung/kee/images/me.png', f'data:image/png;base64,{me_img}')
+
+
 
 def get_time_difference(target):
     now = datetime.now(uk_tz)
@@ -39,10 +55,8 @@ dating_start_date = datetime(2025, 2, 14, 19, 0, 0, tzinfo=uk_tz)  # Started dat
 st.subheader("We've known each other for over 4 years...")
 st.text("Our paths crossed multiple times, but it was only until February 2025 that we finally met.")
 st.text("It almost feels like fate guided us to meet at the right time.")
-components.html(html_content, height=500)
-#st.image("images/Untitled - Frame 8.jpg", use_container_width=True)
-st.image("images/Untitled - Frame 4 copy 2.jpg", use_container_width=True)
-
+# Display the HTML using st.components.v1.html
+st.components.v1.html(html_content, height=625)
 
 st.text("In the short time after we met, we started dating...")
 st.text("On valentines day, we both confessed our feelings for each other. Within the same day we started dating.")
