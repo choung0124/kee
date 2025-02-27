@@ -64,10 +64,62 @@
       object-fit: cover;
       border-radius: 50%;
     }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      background-color: #F8F4FF;
+      margin: 15% auto;
+      padding: 20px;
+      border: 2px solid white;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 15px;
+      position: relative;
+      color: #4A4A4A;
+    }
+    .close-modal {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-modal:hover {
+      color: #000;
+    }
+    .profile-circle {
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 <div class="container">
+  <!-- Add modals -->
+  <div id="keeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('keeModal')">&times;</span>
+      <h2 style="text-align: center;">Kee</h2>
+      <p style="text-align: center;">Your custom content for Kee's modal here</p>
+    </div>
+  </div>
+
+  <div id="meModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('meModal')">&times;</span>
+      <h2 style="text-align: center;">Me</h2>
+      <p style="text-align: center;">Your custom content for your modal here</p>
+    </div>
+  </div>
+
   <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
     <!-- Define patterns for images -->
     <defs>
@@ -90,13 +142,13 @@
     />
 
     <!-- Top circles -->
-    <circle class="teal-circle" cx="25" cy="25" r="25"/>
-    <circle fill="url(#keeImage)" cx="25" cy="25" r="23"/>
+    <circle class="teal-circle profile-circle" cx="30" cy="30" r="25" onclick="openModal('keeModal')"/>
+    <circle fill="url(#keeImage)" class="profile-circle" cx="30" cy="30" r="20" onclick="openModal('keeModal')"/>
     
     <circle stroke="white" stroke-width="8" fill="#F8F4FF" cx="150" cy="50" r="40"/>
     
-    <circle class="pink-circle" cx="275" cy="25" r="25"/>
-    <circle fill="url(#meImage)" cx="275" cy="25" r="23"/>
+    <circle class="pink-circle profile-circle" cx="270" cy="30" r="25" onclick="openModal('meModal')"/>
+    <circle fill="url(#meImage)" class="profile-circle" cx="270" cy="30" r="20" onclick="openModal('meModal')"/>
     
     <!-- Bottom circle -->
     <circle stroke="white" stroke-width="8" fill="#F8F4FF" cx="150" cy="500" r="40"/>
@@ -111,7 +163,7 @@
       class="path"
       d="M 25,50
          C 50,175   350,150  150,250
-         C 0,325   275,350 150,460"
+         C 0,325   275,350 150,450"
     />
 
     <!-- Pink swirl path -->
@@ -120,12 +172,28 @@
       class="path"
       d="M 275,50
          C 250,175  -50,150  150,250
-         C 300,325  25,350  150,460"
+         C 300,325  25,350  150,450"
     />
   </svg>
 </div>
 
 <script>
+  // Add modal functions
+  function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+      event.target.style.display = "none";
+    }
+  }
+
   function animatePath(pathId, duration) {
     const path = document.getElementById(pathId);
     const length = path.getTotalLength();
